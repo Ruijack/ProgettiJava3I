@@ -1,0 +1,8 @@
+#indovinato {
+	-fx-text-fill: cyan;
+	-fx-background-color: yellow;
+}
+
+#errato {
+		-fx-text-fill: red;
+}

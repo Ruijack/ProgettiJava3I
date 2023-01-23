@@ -1,0 +1,12 @@
+#griglia{
+	-fx-padding: 10, 10, 10, 10;
+	-fx-maxHeight: 3000px;
+	-fx-maxWidth: 3000px;
+	-fx-vgap:20px;
+	-fx-hgap:20px;
+	-fx-background-color: white;
+}
+.button{
+	-fx-max-width: 1000px;
+	-fx-max-hight: 1000px;
+}

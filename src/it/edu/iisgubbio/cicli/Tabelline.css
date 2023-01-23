@@ -1,0 +1,15 @@
+.grid-pane{
+	-fx-padding: 10, 10, 10, 10;
+	-fx-maxHeight: 3000px;
+	-fx-maxWidth: 3000px;
+	-fx-vgap:20px;
+	-fx-hgap:20px;
+	-fx-background-color: black;
+}
+.button {
+	-fx-maxHeight: 3000px;
+	-fx-maxWidth: 3000px;
+}
+.label{
+	-fx-text-fill: white;
+}
