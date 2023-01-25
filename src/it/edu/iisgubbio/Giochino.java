@@ -4,8 +4,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,19 +19,32 @@ import javafx.util.Duration;
 public class Giochino /*(Journey of the prairie king)*/ extends Application{
 	
 	Pane pPrincipale;
+	
 	Pane pIniziale;
+	Label lTitolo;
+	Button bStart;
+	
 	Pane pInGame;
 	Rectangle rCowboy;
 	int variabileX= 0, variabileY= 0;
-	Circle[] proiettile;
-	int x = 0;
+	Circle[] proiettile = new Circle[5000];
+	int munizioni = 0;
+	
 	
 	@Override
 	public void start(Stage primaryStage) {
+		
 		pPrincipale = new Pane ();
 		pPrincipale.setPrefSize(320, 320);
+		
 		pIniziale = new Pane();
+		lTitolo = new Label("Trial of a cowboy");
+		bStart = new Button ("Fai un tentativo");
+		pIniziale.getChildren().add(lTitolo);
+		
 		pInGame = new Pane();
+		
+		
 		pPrincipale.getChildren().add(pIniziale);
 		pPrincipale.getChildren().add(pInGame);
 		
@@ -39,7 +55,7 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 		pInGame.getChildren().add(rCowboy);
 		
 		Scene scene = new Scene(pPrincipale);
-		scene.addEventHandler(KeyEvent.KEY_PRESSED,e -> sparare(e));
+		scene.addEventHandler(KeyEvent.KEY_PRESSED,freccia -> sparare(freccia));
 		
 		primaryStage.setTitle("Cowboy vs something");
 		primaryStage.setScene(scene);
@@ -47,6 +63,9 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 		
 		scene.setOnKeyPressed( e -> movimento(e));
 		
+		/*Timeline tSparoSparisce = new Timeline (new KeyFrame(Duration.millis(50), s -> sparisciAiBordi()));
+		tSparoSparisce.setCycleCount(Timeline.INDEFINITE);
+		tSparoSparisce.play();*/
 	}
 
 
@@ -70,32 +89,48 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 	}
 	
 
-	private void sparare(KeyEvent e) {
-		proiettile = new Circle[50];
-		for (;x <= x+1;x = x + 1 ) {
-		if (e.getCode().equals(KeyCode.UP)) {
-			proiettile[x] = new Circle();
-			proiettile[x].setFill(Color.BROWN);
-			pInGame.getChildren().add(proiettile[x]);
+	private void sparare(KeyEvent freccia) {
+		
+		if (freccia.getCode().equals(KeyCode.UP)) {
+			munizioni = munizioni + 1;
+			proiettile[munizioni] = new Circle();
+			proiettile[munizioni].setFill(Color.BROWN);
+			
+			proiettile[munizioni].setRadius(5);
+			proiettile[munizioni].setCenterX(44444);
+			proiettile[munizioni].setCenterY(88888);
+			
+			
+			System.out.println("biss");
 
 			variabileX = 0;
 			variabileY = -1;
+			proiettile[munizioni].setCenterX(rCowboy.getX() + 10);
+			proiettile[munizioni].setCenterY(rCowboy.getY() - 20);
+			pInGame.getChildren().add(proiettile[munizioni]);
 			
 			Timeline tMovimento = new Timeline (new KeyFrame(Duration.millis(50), f -> proiettileMove()));
 			tMovimento.setCycleCount(Timeline.INDEFINITE);
 			tMovimento.play();
-
 		}
+		
+		
 		}
 
-	}
+	
 	
 	private void proiettileMove() {
-		proiettile[x].setCenterX(rCowboy.getX() + 10);
-		proiettile[x].setCenterY(rCowboy.getY() - 20);
-		proiettile[x].setCenterX(proiettile[x].getCenterX() + variabileX);
-		proiettile[x].setCenterY(proiettile[x].getCenterY() + variabileY);
 		
+		proiettile[munizioni].setCenterX(proiettile[munizioni].getCenterX() + variabileX);
+		proiettile[munizioni].setCenterY(proiettile[munizioni].getCenterY() + variabileY);
+		
+	}
+	
+	private void sparisciAiBordi() {
+		
+		if (proiettile[munizioni].getCenterY() < 0 && proiettile[munizioni].getCenterY() < 320) {
+			proiettile[munizioni].setBlendMode(null);
+		}
 	}
 
 
