@@ -34,17 +34,21 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 	public void start(Stage primaryStage) {
 		
 		pPrincipale = new Pane ();
-		pPrincipale.setPrefSize(320, 320);
+		pPrincipale.setPrefSize(324, 324);
 		
 		pIniziale = new Pane();
 		Label lTitolo = new Label("Trial of the cowboy");
 		lTitolo.setPrefSize(150, 50);
 		lTitolo.relocate(100, 80);
+		
 		Button bStart = new Button ("Attempt");
 		bStart.setPrefSize(100, 30);
-		bStart.relocate(110, 150);
+		bStart.relocate(100, 150);
+		
 		Button bOpzioni = new Button ("Opzioni");
 		bOpzioni.relocate(120, 180);
+		
+		
 		pIniziale.getChildren().add(lTitolo);
 		pIniziale.getChildren().add(bStart);
 		pIniziale.getChildren().add(bOpzioni);
@@ -62,7 +66,7 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 		
 		pInGame.setVisible(false);
 		
-		rCowboy = new Rectangle (20, 20);
+		rCowboy = new Rectangle (18, 18);
 		rCowboy.setFill(Color.RED);
 		rCowboy.setX(140);
 		rCowboy.setY(140);
