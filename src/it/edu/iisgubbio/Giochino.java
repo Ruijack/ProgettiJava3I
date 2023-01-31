@@ -21,8 +21,7 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 	Pane pPrincipale;
 	
 	Pane pIniziale;
-	Label lTitolo;
-	Button bStart;
+	Pane pOpzioni;
 	
 	Pane pInGame;
 	Rectangle rCowboy;
@@ -38,15 +37,30 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 		pPrincipale.setPrefSize(320, 320);
 		
 		pIniziale = new Pane();
-		lTitolo = new Label("Trial of a cowboy");
-		bStart = new Button ("Fai un tentativo");
+		Label lTitolo = new Label("Trial of the cowboy");
+		lTitolo.setPrefSize(150, 50);
+		lTitolo.relocate(100, 80);
+		Button bStart = new Button ("Attempt");
+		bStart.setPrefSize(100, 30);
+		bStart.relocate(110, 150);
+		Button bOpzioni = new Button ("Opzioni");
+		bOpzioni.relocate(120, 180);
 		pIniziale.getChildren().add(lTitolo);
+		pIniziale.getChildren().add(bStart);
+		pIniziale.getChildren().add(bOpzioni);
+		
+		pOpzioni = new Pane();
+		
 		
 		pInGame = new Pane();
 		
-		
 		pPrincipale.getChildren().add(pIniziale);
 		pPrincipale.getChildren().add(pInGame);
+		pPrincipale.getChildren().add(pOpzioni);
+		
+		
+		
+		pInGame.setVisible(false);
 		
 		rCowboy = new Rectangle (20, 20);
 		rCowboy.setFill(Color.RED);
@@ -63,9 +77,25 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 		
 		scene.setOnKeyPressed( e -> movimento(e));
 		
+		bStart.setOnAction(e -> cambio());
+		bOpzioni.setOnAction(e -> opzioni());
+		
 		/*Timeline tSparoSparisce = new Timeline (new KeyFrame(Duration.millis(50), s -> sparisciAiBordi()));
 		tSparoSparisce.setCycleCount(Timeline.INDEFINITE);
 		tSparoSparisce.play();*/
+	}
+
+
+
+	private void opzioni() {
+		
+	}
+
+
+
+	private void cambio() {
+		pInGame.setVisible(true);
+		pIniziale.setVisible(false);
 	}
 
 
@@ -112,19 +142,28 @@ public class Giochino /*(Journey of the prairie king)*/ extends Application{
 			Timeline tMovimento = new Timeline (new KeyFrame(Duration.millis(50), f -> proiettileMove()));
 			tMovimento.setCycleCount(Timeline.INDEFINITE);
 			tMovimento.play();
+			
+			
+			}
 		}
+			
+			
+		public void proiettileMove() {
+		
+				proiettile[munizioni].setCenterX(proiettile[munizioni].getCenterX() + variabileX);
+				proiettile[munizioni].setCenterY(proiettile[munizioni].getCenterY() + variabileY);
+		
+				}
+	
 		
 		
-		}
+		
+		
+		
 
 	
 	
-	private void proiettileMove() {
-		
-		proiettile[munizioni].setCenterX(proiettile[munizioni].getCenterX() + variabileX);
-		proiettile[munizioni].setCenterY(proiettile[munizioni].getCenterY() + variabileY);
-		
-	}
+	
 	
 	private void sparisciAiBordi() {
 		
